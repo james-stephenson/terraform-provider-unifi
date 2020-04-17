@@ -7,6 +7,10 @@ import (
 	"github.com/paultyng/go-unifi/unifi"
 )
 
+func init() {
+	schema.DescriptionKind = 1
+}
+
 func Provider() *schema.Provider {
 	p := &schema.Provider{
 		Schema: map[string]*schema.Schema{
