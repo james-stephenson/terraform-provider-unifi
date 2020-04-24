@@ -14,9 +14,14 @@ unifi_firewall_group manages groups of addresses or ports for use in firewall ru
 
 ## Schema
 
-- **id** - (String, Optional)
-- **members** - (Set of String, Required)
-- **name** - (String, Required)
-- **type** - (String, Required)
+### Required
+
+- **members** (Set of String, Required)
+- **name** (String, Required)
+- **type** (String, Required)
+
+### Optional
+
+- **id** (String, Optional)
 
 

@@ -25,9 +25,14 @@ resource "unifi_user_group" "wifi" {
 
 ## Schema
 
-- **id** - (String, Optional)
-- **name** - (String, Required)
-- **qos_rate_max_down** - (Number, Optional)
-- **qos_rate_max_up** - (Number, Optional)
+### Required
+
+- **name** (String, Required)
+
+### Optional
+
+- **id** (String, Optional)
+- **qos_rate_max_down** (Number, Optional)
+- **qos_rate_max_up** (Number, Optional)
 
 

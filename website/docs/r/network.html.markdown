@@ -31,17 +31,22 @@ resource "unifi_network" "vlan" {
 
 ## Schema
 
-- **dhcp_enabled** - (Boolean, Optional)
-- **dhcp_lease** - (Number, Optional)
-- **dhcp_start** - (String, Optional)
-- **dhcp_stop** - (String, Optional)
-- **domain_name** - (String, Optional)
-- **id** - (String, Optional)
-- **igmp_snooping** - (Boolean, Optional)
-- **name** - (String, Required)
-- **network_group** - (String, Optional)
-- **purpose** - (String, Required)
-- **subnet** - (String, Optional)
-- **vlan_id** - (Number, Optional)
+### Required
+
+- **name** (String, Required)
+- **purpose** (String, Required)
+
+### Optional
+
+- **dhcp_enabled** (Boolean, Optional)
+- **dhcp_lease** (Number, Optional)
+- **dhcp_start** (String, Optional)
+- **dhcp_stop** (String, Optional)
+- **domain_name** (String, Optional)
+- **id** (String, Optional)
+- **igmp_snooping** (Boolean, Optional)
+- **network_group** (String, Optional)
+- **subnet** (String, Optional)
+- **vlan_id** (Number, Optional)
 
 

@@ -33,17 +33,25 @@ resource "unifi_user" "test" {
 
 ## Schema
 
-- **allow_existing** - (Boolean, Optional)
-- **blocked** - (Boolean, Optional)
-- **fixed_ip** - (String, Optional)
-- **hostname** - (String, Read-only)
-- **id** - (String, Optional)
-- **ip** - (String, Read-only)
-- **mac** - (String, Required)
-- **name** - (String, Required)
-- **network_id** - (String, Optional)
-- **note** - (String, Optional)
-- **skip_forget_on_destroy** - (Boolean, Optional)
-- **user_group_id** - (String, Optional)
+### Required
+
+- **mac** (String, Required)
+- **name** (String, Required)
+
+### Optional
+
+- **allow_existing** (Boolean, Optional)
+- **blocked** (Boolean, Optional)
+- **fixed_ip** (String, Optional)
+- **id** (String, Optional)
+- **network_id** (String, Optional)
+- **note** (String, Optional)
+- **skip_forget_on_destroy** (Boolean, Optional)
+- **user_group_id** (String, Optional)
+
+### Read-only
+
+- **hostname** (String, Read-only)
+- **ip** (String, Read-only)
 
 
