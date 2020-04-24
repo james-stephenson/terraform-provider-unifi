@@ -21,10 +21,10 @@ unifi_port_forward manages a port forwarding rule on the gateway.
 - **fwd_ip** (String, Optional)
 - **fwd_port** (String, Optional)
 - **id** (String, Optional)
-- **log** (Boolean, Optional)
+- **log** (Boolean, Optional) Defaults to `false`.
 - **name** (String, Optional)
 - **port_forward_interface** (String, Optional)
-- **protocol** (String, Optional)
-- **src_ip** (String, Optional)
+- **protocol** (String, Optional) Defaults to `tcp_udp`.
+- **src_ip** (String, Optional) Defaults to `any`.
 
 

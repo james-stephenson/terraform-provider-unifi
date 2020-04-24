@@ -39,13 +39,13 @@ resource "unifi_network" "vlan" {
 ### Optional
 
 - **dhcp_enabled** (Boolean, Optional)
-- **dhcp_lease** (Number, Optional)
+- **dhcp_lease** (Number, Optional) Defaults to `86400`.
 - **dhcp_start** (String, Optional)
 - **dhcp_stop** (String, Optional)
 - **domain_name** (String, Optional)
 - **id** (String, Optional)
 - **igmp_snooping** (Boolean, Optional)
-- **network_group** (String, Optional)
+- **network_group** (String, Optional) Defaults to `LAN`.
 - **subnet** (String, Optional)
 - **vlan_id** (Number, Optional)
 

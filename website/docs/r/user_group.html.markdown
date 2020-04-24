@@ -32,7 +32,7 @@ resource "unifi_user_group" "wifi" {
 ### Optional
 
 - **id** (String, Optional)
-- **qos_rate_max_down** (Number, Optional)
-- **qos_rate_max_up** (Number, Optional)
+- **qos_rate_max_down** (Number, Optional) Defaults to `-1`.
+- **qos_rate_max_up** (Number, Optional) Defaults to `-1`.
 
 

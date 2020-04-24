@@ -40,13 +40,13 @@ resource "unifi_user" "test" {
 
 ### Optional
 
-- **allow_existing** (Boolean, Optional)
+- **allow_existing** (Boolean, Optional) Defaults to `true`.
 - **blocked** (Boolean, Optional)
 - **fixed_ip** (String, Optional)
 - **id** (String, Optional)
 - **network_id** (String, Optional)
 - **note** (String, Optional)
-- **skip_forget_on_destroy** (Boolean, Optional)
+- **skip_forget_on_destroy** (Boolean, Optional) Defaults to `false`.
 - **user_group_id** (String, Optional)
 
 ### Read-only

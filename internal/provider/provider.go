@@ -2,6 +2,8 @@ package provider
 
 import (
 	"context"
+	"fmt"
+	"strings"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/paultyng/go-unifi/unifi"
@@ -9,6 +11,14 @@ import (
 
 func init() {
 	schema.DescriptionKind = 1
+
+	schema.SchemaDescriptionBuilder = func(s *schema.Schema) string {
+		desc := s.Description
+		if s.Default != nil {
+			desc += fmt.Sprintf(" Defaults to `%v`.", s.Default)
+		}
+		return strings.TrimSpace(desc)
+	}
 }
 
 func Provider() *schema.Provider {

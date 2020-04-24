@@ -45,11 +45,11 @@ resource "unifi_wlan" "wifi" {
 - **is_guest** (Boolean, Optional) Indicates that this is a guest WLAN and should use guest behaviors.
 - **mac_filter_enabled** (Boolean, Optional) Indicates whether or not the MAC filter is turned of for the network.
 - **mac_filter_list** (Set of String, Optional) List of MAC addresses to filter (only valid if `mac_filter_enabled` is `true`).
-- **mac_filter_policy** (String, Optional) MAC address filter policy (only valid if `mac_filter_enabled` is `true`).
+- **mac_filter_policy** (String, Optional) MAC address filter policy (only valid if `mac_filter_enabled` is `true`). Defaults to `deny`.
 - **multicast_enhance** (Boolean, Optional) Indicates whether or not Multicast Enhance is turned of for the network.
 - **passphrase** (String, Optional) The passphrase for the network, this is only required if `security` is not set to `open`.
 - **schedule** (Block List, see below) Start and stop schedules for the WLAN
-- **vlan_id** (Number, Optional) VLAN ID for the network.
+- **vlan_id** (Number, Optional) VLAN ID for the network. Defaults to `1`.
 
 ### Nested Schema for `schedule`
 

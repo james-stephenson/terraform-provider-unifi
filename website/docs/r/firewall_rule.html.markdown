@@ -27,7 +27,7 @@ unifi_firewall_rule manages an individual firewall rule on the gateway.
 - **dst_address** (String, Optional)
 - **dst_firewall_group_ids** (Set of String, Optional)
 - **dst_network_id** (String, Optional)
-- **dst_network_type** (String, Optional)
+- **dst_network_type** (String, Optional) Defaults to `NETv4`.
 - **id** (String, Optional)
 - **ip_sec** (String, Optional)
 - **logging** (Boolean, Optional)
@@ -35,7 +35,7 @@ unifi_firewall_rule manages an individual firewall rule on the gateway.
 - **src_firewall_group_ids** (Set of String, Optional)
 - **src_mac** (String, Optional)
 - **src_network_id** (String, Optional)
-- **src_network_type** (String, Optional)
+- **src_network_type** (String, Optional) Defaults to `NETv4`.
 - **state_established** (Boolean, Optional)
 - **state_invalid** (Boolean, Optional)
 - **state_new** (Boolean, Optional)
