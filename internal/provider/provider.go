@@ -95,6 +95,7 @@ func New(version string) func() *schema.Provider {
 				"unifi_static_route":   resourceStaticRoute(),
 				"unifi_user_group":     resourceUserGroup(),
 				"unifi_user":           resourceUser(),
+				"unifi_vpn_server":     resourceVPNServer(),
 				"unifi_wlan":           resourceWLAN(),
 				"unifi_setting_mgmt":   resourceSettingMgmt(),
 			},
