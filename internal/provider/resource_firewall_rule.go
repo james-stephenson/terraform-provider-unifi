@@ -43,6 +43,12 @@ func resourceFirewallRule() *schema.Resource {
 				Type:        schema.TypeString,
 				Required:    true,
 			},
+			"enabled": {
+				Description: "Enables the firewall rule.",
+				Type:        schema.TypeBool,
+				Optional:    true,
+				Default:     true,
+			},
 			"action": {
 				Description:  "The action of the firewall rule. Must be one of `drop`, `accept`, or `reject`.",
 				Type:         schema.TypeString,
@@ -213,7 +219,7 @@ func resourceFirewallRuleGetResourceData(d *schema.ResourceData) (*unifi.Firewal
 	}
 
 	return &unifi.FirewallRule{
-		Enabled:          true,
+		Enabled:          d.Get("enabled").(bool),
 		Name:             d.Get("name").(string),
 		Action:           d.Get("action").(string),
 		Ruleset:          d.Get("ruleset").(string),
@@ -244,6 +250,7 @@ func resourceFirewallRuleGetResourceData(d *schema.ResourceData) (*unifi.Firewal
 func resourceFirewallRuleSetResourceData(resp *unifi.FirewallRule, d *schema.ResourceData, site string) error {
 	d.Set("site", site)
 	d.Set("name", resp.Name)
+	d.Set("enabled", resp.Enabled)
 	d.Set("action", resp.Action)
 	d.Set("ruleset", resp.Ruleset)
 	d.Set("rule_index", resp.RuleIndex)
