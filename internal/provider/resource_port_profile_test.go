@@ -29,6 +29,6 @@ resource "unifi_port_profile" "test" {
 
 	poe_mode	  = "off"
 	speed 		  = 1000
-	stp_port_mode = false
+	stp_enabled = false
 }
 `
