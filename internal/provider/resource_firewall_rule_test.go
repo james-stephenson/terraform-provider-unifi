@@ -95,6 +95,19 @@ func TestAccFirewallRule_address_and_port_group(t *testing.T) {
 	})
 }
 
+func TestAccFirewallRule_disabled(t *testing.T) {
+	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:          func() { preCheck(t) },
+		ProviderFactories: providerFactories,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccFirewallRuleConfigDisabled,
+			},
+			importStep("unifi_firewall_rule.test"),
+		},
+	})
+}
+
 // func TestAccFirewallRule_firewall_group(t *testing.T) {
 // func TestAccFirewallRule_network(t *testing.T) {
 
@@ -245,6 +258,22 @@ resource "unifi_firewall_rule" "test" {
 		unifi_firewall_group.test_b.id,
 	]
 
+	dst_address = "192.168.1.1"
+}
+`
+
+const testAccFirewallRuleConfigDisabled = `
+resource "unifi_firewall_rule" "test" {
+	name    = "disabled"
+	enabled	=	false
+	action  = "accept"
+	ruleset = "LAN_IN"
+
+	rule_index = 2020
+
+	protocol = "all"
+
+	src_address = "192.168.3.3"
 	dst_address = "192.168.1.1"
 }
 `
