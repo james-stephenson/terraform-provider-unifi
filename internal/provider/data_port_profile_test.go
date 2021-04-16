@@ -15,7 +15,44 @@ func TestAccDataPortProfile_default(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataPortProfileConfig_default,
-				Check:  resource.ComposeTestCheckFunc(),
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttr("data.unifi_port_profile.default", "name", "All"),
+					resource.TestCheckResourceAttr("data.unifi_port_profile.default", "forward", "all"),
+				),
+			},
+		},
+	})
+}
+
+func TestAccDataPortProfile_disabled(t *testing.T) {
+	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:          func() { preCheck(t) },
+		ProviderFactories: providerFactories,
+		// TODO: CheckDestroy: ,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccDataPortProfileConfig_disabled,
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttr("data.unifi_port_profile.disabled", "name", "Disabled"),
+					resource.TestCheckResourceAttr("data.unifi_port_profile.disabled", "forward", "disabled"),
+				),
+			},
+		},
+	})
+}
+
+func TestAccDataPortProfile_lan(t *testing.T) {
+	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:          func() { preCheck(t) },
+		ProviderFactories: providerFactories,
+		// TODO: CheckDestroy: ,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccDataPortProfileConfig_lan,
+				Check: resource.ComposeTestCheckFunc(
+					resource.TestCheckResourceAttr("data.unifi_port_profile.lan", "name", "LAN"),
+					resource.TestCheckResourceAttr("data.unifi_port_profile.lan", "forward", "native"),
+				),
 			},
 		},
 	})
@@ -53,5 +90,17 @@ func TestAccDataPortProfile_multiple_providers(t *testing.T) {
 
 const testAccDataPortProfileConfig_default = `
 data "unifi_port_profile" "default" {
+}
+`
+
+const testAccDataPortProfileConfig_disabled = `
+data "unifi_port_profile" "disabled" {
+	name = "Disabled"
+}
+`
+
+const testAccDataPortProfileConfig_lan = `
+data "unifi_port_profile" "lan" {
+	name = "LAN"
 }
 `
