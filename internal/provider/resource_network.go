@@ -144,6 +144,11 @@ func resourceNetwork() *schema.Resource {
 				Type:        schema.TypeBool,
 				Optional:    true,
 			},
+			"upnp_enabled": {
+				Description: "Enables UPnP on this network",
+				Type:        schema.TypeBool,
+				Optional:    true,
+			},
 			"ipv6_interface_type": {
 				Description: "Specifies which type of IPv6 connection to use.",
 				Type:        schema.TypeString,
@@ -281,6 +286,7 @@ func resourceNetworkGetResourceData(d *schema.ResourceData) (*unifi.Network, err
 		DHCPDBootFilename: d.Get("dhcpd_boot_filename").(string),
 		DomainName:        d.Get("domain_name").(string),
 		IGMPSnooping:      d.Get("igmp_snooping").(bool),
+		UpnpLanEnabled:    d.Get("upnp_enabled").(bool),
 
 		DHCPDDNSEnabled: len(dhcpDNS) > 0,
 		// this is kinda hacky but ¯\_(ツ)_/¯
