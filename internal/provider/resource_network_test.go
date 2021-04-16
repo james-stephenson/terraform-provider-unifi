@@ -247,6 +247,7 @@ func TestAccNetwork_importByName(t *testing.T) {
 				ImportState:       true,
 				ImportStateVerify: true,
 				ImportStateId:     "name=tfacc",
+				ExpectError:       regexp.MustCompile("Found multiple networks"),
 			},
 			// Apply and test errors.
 			{

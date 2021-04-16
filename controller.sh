@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/usr/bin/env bash
 
 set -eou pipefail
 
@@ -20,15 +20,21 @@ fi
 
 case "$1" in
   "start")
-    docker run --rm --init -d \
-      -p ${DOCKER_HTTP_PORT}:8080 \
-      -p ${DOCKER_HTTPS_PORT}:8443 \
-      -p ${DOCKER_STUN_PORT}:3478/udp \
-      -p ${DOCKER_AIRCONTROL_PORT}:10001/udp \
-      -e TZ='America/New_York' \
-      -v $(pwd)/testdata/unifi:/unifi \
-      --name unifi \
-      jacobalberty/unifi:${2:-$default_tag}
+    if [[ ! -d testata/out ]]; then
+      cp -r testdata/{unifi,out}
+    fi
+
+    if [[ $(( $(docker ps --filter=name=unifi -q | wc -l) )) == 0 ]]; then
+      docker run --rm --init -d \
+        -p ${DOCKER_HTTP_PORT}:8080 \
+        -p ${DOCKER_HTTPS_PORT}:8443 \
+        -p ${DOCKER_STUN_PORT}:3478/udp \
+        -p ${DOCKER_AIRCONTROL_PORT}:10001/udp \
+        -e TZ='America/New_York' \
+        -v $(pwd)/testdata/out:/unifi \
+        --name unifi \
+        jacobalberty/unifi:${2:-$default_tag}
+    fi
 
     echo "Waiting for login page..."
     timeout 300 bash -c 'while [[ "$(curl --insecure -s -o /dev/null -w "%{http_code}" '"https://localhost:${DOCKER_HTTPS_PORT}/manage/account/login"')" != "200" ]]; do sleep 5; done'
@@ -50,10 +56,7 @@ case "$1" in
     docker pull jacobalberty/unifi:${2:-$default_tag}
     ;;
   "reset")
-    git checkout - testdata/unifi/
-    for file in $( git ls-files --others --exclude-standard | grep testdata/unifi ) ; do
-            rm -f ${file}
-    done
+    rm -rf testdata/out
     ;;
   *)
     echo "unrecognized command"
