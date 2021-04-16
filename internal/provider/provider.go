@@ -89,6 +89,7 @@ func New(version string) func() *schema.Provider {
 				"unifi_network":        resourceNetwork(),
 				"unifi_port_forward":   resourcePortForward(),
 				"unifi_port_profile":   resourcePortProfile(),
+				"unifi_radius_server":  resourceRadiusServer(),
 				"unifi_site":           resourceSite(),
 				"unifi_static_route":   resourceStaticRoute(),
 				"unifi_user_group":     resourceUserGroup(),
@@ -212,6 +213,9 @@ type unifiClient interface {
 
 	GetSettingMgmt(ctx context.Context, id string) (*unifi.SettingMgmt, error)
 	UpdateSettingMgmt(ctx context.Context, site string, d *unifi.SettingMgmt) (*unifi.SettingMgmt, error)
+
+	GetSettingRadius(ctx context.Context, site string) (*unifi.SettingRadius, error)
+	UpdateSettingRadius(ctx context.Context, site string, d *unifi.SettingRadius) (*unifi.SettingRadius, error)
 }
 
 type client struct {
