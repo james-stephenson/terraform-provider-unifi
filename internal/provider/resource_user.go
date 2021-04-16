@@ -141,7 +141,13 @@ func resourceUserCreate(d *schema.ResourceData, meta interface{}) error {
 
 		resp, err = c.c.UpdateUser(context.TODO(), site, req)
 		if err != nil {
-			return err
+			switch err.(type) {
+			case *unifi.NotFoundError:
+				d.SetId(req.ID)
+				return resourceUserRead(d, meta)
+			default:
+				return err
+			}
 		}
 	}
 
@@ -261,7 +267,12 @@ func resourceUserUpdate(d *schema.ResourceData, meta interface{}) error {
 
 	resp, err := c.c.UpdateUser(context.TODO(), site, req)
 	if err != nil {
-		return err
+		switch err.(type) {
+		case *unifi.NotFoundError:
+			return resourceUserRead(d, meta)
+		default:
+			return err
+		}
 	}
 
 	return resourceUserSetResourceData(resp, d, site)
