@@ -74,6 +74,16 @@ func resourceWLAN() *schema.Resource {
 				Type:        schema.TypeBool,
 				Optional:    true,
 			},
+			"force_5ghz": {
+				Description: "Force all detected 'high performance devices' to only use the 5GHz band for this WLAN.",
+				Type:        schema.TypeBool,
+				Optional:    true,
+			},
+			"bss_transitions_enabled": {
+				Description: "Enables Basic Service Set (BSS) transition managment with Wireless Network Managment (WNM) 802.11v",
+				Type:        schema.TypeBool,
+				Optional:    true,
+			},
 			"mac_filter_enabled": {
 				Description: "Indicates whether or not the MAC filter is turned of for the network.",
 				Type:        schema.TypeBool,
@@ -130,12 +140,6 @@ func resourceWLAN() *schema.Resource {
 						},
 					},
 				},
-			},
-			"no2ghz_oui": {
-				Description: "Connect high performance clients to 5 GHz only",
-				Type:        schema.TypeBool,
-				Optional:    true,
-				Default:     true,
 			},
 
 			// controller v6 fields
@@ -247,6 +251,8 @@ func resourceWLANGetResourceData(d *schema.ResourceData, meta interface{}) (*uni
 		UserGroupID:             d.Get("user_group_id").(string),
 		Security:                security,
 		MulticastEnhanceEnabled: d.Get("multicast_enhance").(bool),
+		No2GhzOui:               d.Get("force_5ghz").(bool),
+		BssTransition:           d.Get("bss_transitions_enabled").(bool),
 		MACFilterEnabled:        macFilterEnabled,
 		MACFilterList:           macFilterList,
 		MACFilterPolicy:         d.Get("mac_filter_policy").(string),
@@ -268,7 +274,6 @@ func resourceWLANGetResourceData(d *schema.ResourceData, meta interface{}) (*uni
 
 		GroupRekey:               3600,
 		DTIMMode:                 "default",
-		No2GhzOui:                d.Get("no2ghz_oui").(bool),
 		MinrateNgCckRatesEnabled: true,
 	}, nil
 }
@@ -335,13 +340,14 @@ func resourceWLANSetResourceData(resp *unifi.WLAN, d *schema.ResourceData, meta 
 	d.Set("is_guest", resp.IsGuest)
 	d.Set("security", security)
 	d.Set("multicast_enhance", resp.MulticastEnhanceEnabled)
+	d.Set("force_5ghz", resp.No2GhzOui)
+	d.Set("bss_transitions_enabled", resp.BssTransition)
 	d.Set("mac_filter_enabled", macFilterEnabled)
 	d.Set("mac_filter_list", macFilterList)
 	d.Set("mac_filter_policy", macFilterPolicy)
 	d.Set("radius_profile_id", resp.RADIUSProfileID)
 	d.Set("schedule", schedule)
 	d.Set("wlan_band", resp.WLANBand)
-	d.Set("no2ghz_oui", resp.No2GhzOui)
 
 	// switch v := c.ControllerVersion(); {
 	// case v.GreaterThanOrEqual(controllerV6):
