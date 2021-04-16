@@ -231,7 +231,7 @@ func TestAccWLAN_wlan_band(t *testing.T) {
 	})
 }
 
-func TestAccWLAN_no2ghz_oui(t *testing.T) {
+func TestAccWLAN_force_5ghz(t *testing.T) {
 	vlanID := getTestVLAN(t)
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck: func() {
@@ -248,7 +248,7 @@ func TestAccWLAN_no2ghz_oui(t *testing.T) {
 		},
 		Steps: []resource.TestStep{
 			{
-				Config: testAccWLANConfig_no2ghz_oui(vlanID),
+				Config: testAccWLANConfig_force_5ghz(vlanID),
 				Check:  resource.ComposeTestCheckFunc(
 				// testCheckNetworkExists(t, "name"),
 				),
@@ -443,7 +443,7 @@ resource "unifi_wlan" "test" {
 `, vlanID)
 }
 
-func testAccWLANConfig_no2ghz_oui(vlanID int) string {
+func testAccWLANConfig_force_5ghz(vlanID int) string {
 	return fmt.Sprintf(`
 data "unifi_ap_group" "default" {
 }
@@ -466,7 +466,7 @@ resource "unifi_wlan" "test" {
 	ap_group_ids = [data.unifi_ap_group.default.id]
 	user_group_id = data.unifi_user_group.default.id
 	security      = "wpapsk"
-	no2ghz_oui = false
+	force_5ghz = false
 
 	multicast_enhance = true
 }
